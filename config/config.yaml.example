@@ -1,0 +1,7 @@
+config_version: "1.0"
+skills_dir: "/var/lib/ai-skills/skills"
+log_level: "info"
+server:
+  enabled: false
+  host: "127.0.0.1"
+  port: 8787

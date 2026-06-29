@@ -1,0 +1,21 @@
+[Unit]
+Description=AI Skills Service
+Documentation=https://github.com/agustinus/skills
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+User=ai-skills
+Group=ai-skills
+Environment=AI_SKILLS_CONFIG=/etc/ai-skills/config.yaml
+ExecStart=/opt/ai-skills/current/bin/ai-skills doctor
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ReadWritePaths=/var/lib/ai-skills /var/log/ai-skills
+
+[Install]
+WantedBy=multi-user.target

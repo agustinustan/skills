@@ -1,0 +1,30 @@
+{
+  "name": "ai-skills",
+  "version": "0.1.0",
+  "config_version": "1.0",
+  "arch": ["amd64", "arm64"],
+  "install_prefix": "/opt/ai-skills",
+  "config_dir": "/etc/ai-skills",
+  "data_dir": "/var/lib/ai-skills",
+  "log_dir": "/var/log/ai-skills",
+  "bin_dir": "/usr/local/bin",
+  "service_name": "ai-skills",
+  "service_user": "ai-skills",
+  "codex_user_skills_dir": "$HOME/.agents/skills",
+  "codex_admin_skills_dir": "/etc/codex/skills",
+  "pi_user_skills_dir": "$HOME/.pi/agent/skills",
+  "pi_admin_skills_dir": "/etc/pi/agent/skills",
+  "github_repo": "agustinus/skills",
+  "managed_paths": [
+    "/opt/ai-skills",
+    "/usr/local/bin/ai-skills",
+    "/etc/systemd/system/ai-skills.service",
+    "$HOME/.agents/skills/ai-skill-template",
+    "$HOME/.pi/agent/skills/ai-skill-template"
+  ],
+  "preserved_paths": [
+    "/etc/ai-skills",
+    "/var/lib/ai-skills",
+    "/var/log/ai-skills"
+  ]
+}
