@@ -286,6 +286,7 @@ docker run --rm \
 	      --from markdown+yaml_metadata_block+tex_math_dollars \
 	      --to html5 \
 	      --standalone \
+	      --embed-resources \
 	      --resource-path=/data:/tmp \
 	      --toc \
 	      --toc-depth=3 \
