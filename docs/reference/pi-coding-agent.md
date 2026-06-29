@@ -39,7 +39,7 @@ Pi also loads skills from `$HOME/.agents/skills`, so the default Codex install t
 Pi can also consume this repository as a package because it has a conventional `skills/` directory and a `package.json` `pi.skills` entry:
 
 ```bash
-pi install git:github.com/agustinus/skills@v0.1.0
+pi install git:github.com/agustinustan/skills@v0.1.0
 pi install /absolute/path/to/skills
 ```
 

@@ -1,6 +1,6 @@
 [Unit]
 Description=AI Skills Service
-Documentation=https://github.com/agustinus/skills
+Documentation=https://github.com/agustinustan/skills
 After=network-online.target
 Wants=network-online.target
 

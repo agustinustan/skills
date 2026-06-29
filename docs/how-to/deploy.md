@@ -37,5 +37,5 @@ File `.asc` hanya dibuat bila `gpg` tersedia.
 ## Install From Release
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/agustinus/skills/main/install.sh | APP_REPO=agustinus/skills VERSION=0.1.0 bash
+curl -fsSL https://raw.githubusercontent.com/agustinustan/skills/main/install.sh | APP_REPO=agustinustan/skills VERSION=0.1.0 bash
 ```

@@ -24,7 +24,7 @@ Jika `install.sh --check` gagal karena arsitektur, build release belum mendukung
 Set `VERSION` secara eksplisit:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/agustinus/skills/main/install.sh | VERSION=0.1.0 bash
+curl -fsSL https://raw.githubusercontent.com/agustinustan/skills/main/install.sh | VERSION=0.1.0 bash
 ```
 
 ## GPG Verification Fails or Is Missing

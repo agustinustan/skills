@@ -7,13 +7,13 @@ Repository ini adalah template distribusi tarball untuk skill-skill AI assistant
 Dari GitHub release untuk OpenAI Codex CLI user install:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/agustinus/skills/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/agustinustan/skills/main/install.sh | bash
 ```
 
 Dari clone lokal:
 
 ```bash
-git clone https://github.com/agustinus/skills.git
+git clone https://github.com/agustinustan/skills.git
 cd skills
 bash install.sh
 ```
@@ -75,7 +75,7 @@ sudo ./uninstall.sh --purge
 Mode curl-pipe menggunakan GitHub release. Override repository atau versi:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/agustinus/skills/main/install.sh | APP_REPO=agustinus/skills VERSION=0.1.0 bash
+curl -fsSL https://raw.githubusercontent.com/agustinustan/skills/main/install.sh | APP_REPO=agustinustan/skills VERSION=0.1.0 bash
 ```
 
 Systemd tidak diperlukan untuk skill Codex CLI. Gunakan `--systemd` hanya jika repo ini nanti menyertakan daemon/background service.
