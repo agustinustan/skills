@@ -29,7 +29,7 @@ install.sh - install ai-skills
 
 Usage:
   sudo ./install.sh [options]
-  curl -fsSL https://raw.githubusercontent.com/agustinus/skills/main/install.sh | sudo bash
+  curl -fsSL https://raw.githubusercontent.com/agustinustan/skills/main/install.sh | sudo bash
 
 Options:
   --install            Install application (default)

@@ -18,7 +18,7 @@ angkrang doctor
 ## 1. Clone Repository
 
 ```bash
-git clone https://github.com/agustinus/skills.git
+git clone https://github.com/agustinustan/skills.git
 cd skills
 ```
 
