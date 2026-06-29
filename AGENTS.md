@@ -49,5 +49,5 @@ Fall back to file search for string literals, shell scripts, config files, docum
 <!-- SPECKIT START -->
 For additional context about technologies to be used, project structure,
 shell commands, and other important information, read the current plan
-at specs/001-hello-world-skill/plan.md
+at specs/002-markdown-to-pdf-skill/plan.md
 <!-- SPECKIT END -->

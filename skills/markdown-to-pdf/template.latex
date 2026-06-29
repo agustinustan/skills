@@ -1,0 +1,457 @@
+% ─────────────────────────────────────────────────────────────────
+%  Markdown → Professional PDF  —  Custom Pandoc LaTeX Template
+% ─────────────────────────────────────────────────────────────────
+
+\documentclass[$if(fontsize)$$fontsize$$else$11pt$endif$$if(papersize)$,$papersize$paper$else$,a4paper$endif$$for(classoption)$,$classoption$$endfor$]{$documentclass$}
+
+% ── Packages ─────────────────────────────────────────────────────
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+$if(geometry)$
+\usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
+$else$
+\usepackage[margin=2.5cm]{geometry}
+$endif$
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{fontspec}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{caption}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{etoolbox}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{}
+\IfFileExists{seqsplit.sty}{\usepackage{seqsplit}}{}
+
+% Help long inline/code lines stay within the page
+\setlength{\emergencystretch}{8em}
+\sloppy
+
+% ── Fonts ────────────────────────────────────────────────────────
+\setmainfont{FreeSerif}[
+  Ligatures=TeX,
+  BoldFont={FreeSerifBold},
+  ItalicFont={FreeSerifItalic},
+  BoldItalicFont={FreeSerifBoldItalic}
+]
+\setsansfont{FreeSans}[
+  Ligatures=TeX,
+  BoldFont={FreeSansBold},
+  ItalicFont={FreeSansOblique},
+  BoldItalicFont={FreeSansBoldOblique}
+]
+\setmonofont{FreeMono}[
+  BoldFont={FreeMonoBold},
+  ItalicFont={FreeMonoOblique},
+  BoldItalicFont={FreeMonoBoldOblique}
+]
+
+% ── Theme Colors ─────────────────────────────────────────────────
+% Fallback defaults (black) — overridden by specific theme blocks
+\definecolor{primary}{HTML}{000000}
+\definecolor{secondary}{HTML}{4D4D4D}
+\definecolor{accent}{HTML}{999999}
+\definecolor{lightbg}{HTML}{F5F5F5}
+\definecolor{rulecolor}{HTML}{000000}
+\definecolor{tablehead}{HTML}{E8E8E8}
+\definecolor{blockquote}{HTML}{F5F5F5}
+
+$if(theme_professional)$
+\definecolor{primary}{HTML}{1A5276}
+\definecolor{secondary}{HTML}{2E86C1}
+\definecolor{accent}{HTML}{5DADE2}
+\definecolor{lightbg}{HTML}{EBF5FB}
+\definecolor{rulecolor}{HTML}{1A5276}
+\definecolor{tablehead}{HTML}{D4E6F1}
+\definecolor{blockquote}{HTML}{EBF5FB}
+$endif$
+$if(theme_modern)$
+\definecolor{primary}{HTML}{16A085}
+\definecolor{secondary}{HTML}{1ABC9C}
+\definecolor{accent}{HTML}{48C9B0}
+\definecolor{lightbg}{HTML}{E8F8F5}
+\definecolor{rulecolor}{HTML}{16A085}
+\definecolor{tablehead}{HTML}{D1F2EB}
+\definecolor{blockquote}{HTML}{E8F8F5}
+$endif$
+$if(theme_minimal)$
+\definecolor{primary}{HTML}{2C3E50}
+\definecolor{secondary}{HTML}{7F8C8D}
+\definecolor{accent}{HTML}{BDC3C7}
+\definecolor{lightbg}{HTML}{F2F3F4}
+\definecolor{rulecolor}{HTML}{BDC3C7}
+\definecolor{tablehead}{HTML}{EAECEE}
+\definecolor{blockquote}{HTML}{F8F9F9}
+$endif$
+$if(theme_default)$
+\definecolor{primary}{HTML}{000000}
+\definecolor{secondary}{HTML}{4D4D4D}
+\definecolor{accent}{HTML}{999999}
+\definecolor{lightbg}{HTML}{F5F5F5}
+\definecolor{rulecolor}{HTML}{000000}
+\definecolor{tablehead}{HTML}{E8E8E8}
+\definecolor{blockquote}{HTML}{F5F5F5}
+$endif$
+
+% ── Heading Styles (no titlesec needed) ──────────────────────────
+\makeatletter
+% \section → colored + sans-serif
+\let\@oldsection\section
+\renewcommand{\section}{\@ifstar\@ssection\@nsection}
+\newcommand{\@nsection}[1]{\@oldsection{\textsf{\color{primary}#1}}}
+\newcommand{\@ssection}[1]{\@oldsection*{\textsf{\color{primary}#1}}}
+% \subsection → colored
+\let\@oldsubsection\subsection
+\renewcommand{\subsection}{\@ifstar\@ssubsection\@nsubsection}
+\newcommand{\@nsubsection}[1]{\@oldsubsection{\color{primary!80!black}#1}}
+\newcommand{\@ssubsection}[1]{\@oldsubsection*{\color{primary!80!black}#1}}
+% \subsubsection → inherit, slightly muted
+\let\@oldsubsubsection\subsubsection
+\renewcommand{\subsubsection}{\@ifstar\@ssubsub\@nsubsub}
+\newcommand{\@nsubsub}[1]{\@oldsubsubsection{\color{secondary}#1}}
+\newcommand{\@ssubsub}[1]{\@oldsubsubsection*{\color{secondary}#1}}
+\makeatother
+
+% ── Block quotes (colored left bar) ──────────────────────────────
+\usepackage{framed}
+\definecolor{shadecolor}{HTML}{EBF5FB}
+\renewenvironment{quote}{%
+  \list{}{\leftmargin=1em\rightmargin=0pt\topsep=6pt}%
+  \item\relax\color{secondary}\small
+}{%
+  \endlist
+}
+
+% ── Code blocks (listings) ───────────────────────────────────────
+\lstset{
+  basicstyle=\scriptsize\ttfamily,
+  backgroundcolor=\color{lightbg},
+  frame=single,
+  framerule=0.4pt,
+  rulecolor=\color{rulecolor!40},
+  framesep=4pt,
+  xleftmargin=0pt,
+  xrightmargin=0pt,
+  breaklines=true,
+  breakatwhitespace=false,
+  breakindent=0pt,
+  postbreak=\mbox{\textcolor{red}{\ensuremath{\hookrightarrow}}\space},
+  captionpos=b,
+  showstringspaces=false,
+  columns=flexible,
+  keepspaces=true
+}
+
+% ── Tables ───────────────────────────────────────────────────────
+% Colored header row
+\let\oldtabular\tabular
+\let\endoldtabular\endtabular
+
+% ── Hyperref ────────────────────────────────��────────────────────
+\hypersetup{
+  colorlinks=true,
+  linkcolor=primary,
+  urlcolor=secondary,
+  citecolor=accent,
+  pdfborder={0 0 0}
+}
+
+% ── Header / Footer ──────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+% Header lines
+$if(header_left)$
+\fancyhead[L]{\small\textcolor{secondary}{$header_left$}}
+$endif$
+$if(header_center)$
+\fancyhead[C]{\small\textcolor{secondary}{$header_center$}}
+$endif$
+$if(header_right)$
+\fancyhead[R]{\small\textcolor{secondary}{$header_right$}}
+$endif$
+% Footer lines
+$if(footer_left)$
+\fancyfoot[L]{\small\textcolor{secondary}{$footer_left$}}
+$endif$
+$if(footer_center)$
+\fancyfoot[C]{\small\textcolor{secondary}{$footer_center$}}
+$endif$
+$if(footer_right)$
+\fancyfoot[R]{\small\textcolor{secondary}{$footer_right$}}
+$endif$
+% Page numbers (if enabled and not already in footer_center)
+$if(page_numbers)$
+$if(footer_center)$
+$else$
+\fancyfoot[C]{\thepage}
+$endif$
+$endif$
+
+% ── Metadata ─────────────────────────────────────────────────────
+$if(title)$
+\title{$title$}
+$endif$
+$if(subtitle)$
+\makeatletter
+\providecommand{\subtitle}[1]{%
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{$subtitle$}
+$endif$
+$if(author)$
+\author{$for(author)$$author$$sep$ \and $endfor$}
+$endif$
+$if(date)$
+\date{$date$}
+$endif$
+
+% ── Pandoc Internal Helpers ──────────────────────────────────────
+$common.latex()$
+
+% Allow long inline code/path fragments rendered as \texttt{...} to break.
+\makeatletter
+\@ifpackageloaded{seqsplit}{%
+  \let\OldTexttt\texttt
+  \renewcommand{\texttt}[1]{%
+    \begingroup\ttfamily\hyphenchar\font=`\-\relax\seqsplit{#1}\endgroup
+  }%
+}{}
+\makeatother
+
+% Pandoc syntax highlighting uses fancyvrb's Highlighting environment.
+% Force highlighted code blocks to wrap instead of overflowing page margins.
+\IfFileExists{fvextra.sty}{%
+  \usepackage{fvextra}
+  \RecustomVerbatimEnvironment{Highlighting}{Verbatim}{%
+    commandchars=\\\{\},
+    fontsize=\scriptsize,
+    breaklines=true,
+    breakanywhere=true,
+    breaksymbolleft={},
+    breaksymbolright={},
+    breakindent=0pt,
+    xleftmargin=0pt,
+    xrightmargin=0pt
+  }%
+}{}
+$for(header-includes)$
+$header-includes$
+$endfor$
+$after-header-includes.latex()$
+
+% ─────────────────────────────────────────────────────────────────
+\begin{document}
+% ─────────────────────────────────────────────────────────────────
+
+$if(has-frontmatter)$
+\frontmatter
+$endif$
+
+% ═════════════════════════════════════════════════════════════════
+%  COVER PAGE
+% ═════════════════════════════════════════════════════════════════
+
+$if(cover_compact)$
+% ── Compact Cover ────────────────────────────────────────────────
+\thispagestyle{empty}
+\begin{center}
+\vspace*{3cm}
+{\Huge\bfseries\sffamily\color{primary}$title$}
+\vspace{0.4cm}
+
+$if(subtitle)$
+{\LARGE\color{secondary}$subtitle$}
+\vspace{0.6cm}
+$endif$
+
+\vspace{1cm}
+{\large\color{secondary}$date$}
+
+$if(version)$
+\vspace{0.4cm}
+{\normalsize\color{accent}Version: $version$}
+$endif$
+
+\vspace{2cm}
+{\color{rulecolor}\rule{0.5\textwidth}{0.4pt}}
+\end{center}
+\newpage
+\setcounter{page}{1}
+$endif$
+
+$if(cover_standard)$
+% ── Standard Cover ───────────────────────────────────────────────
+\begin{titlepage}
+\thispagestyle{empty}
+\begin{center}
+\vspace*{4cm}
+
+% Decorative top rule
+{\color{rulecolor}\rule{0.3\textwidth}{1pt}}
+\vspace{1cm}
+
+{\Huge\bfseries\sffamily\color{primary}$title$}
+
+\vspace{0.6cm}
+{\color{rulecolor}\rule{0.6\textwidth}{0.4pt}}
+\vspace{0.6cm}
+
+$if(subtitle)$
+{\LARGE\color{secondary}$subtitle$}
+\vspace{0.8cm}
+$endif$
+
+\vspace{1.5cm}
+{\large\color{secondary}$date$}
+
+$if(version)$
+\vspace{0.4cm}
+{\normalsize\color{accent}Version: $version$}
+$endif$
+
+$if(author)$
+\vspace{1cm}
+{\normalsize\color{secondary}$for(author)$$author$$sep$ \\ $endfor$}
+$endif$
+
+\vfill
+{\color{rulecolor}\rule{0.3\textwidth}{1pt}}
+\vspace{0.5cm}
+
+\end{center}
+\end{titlepage}
+$endif$
+
+$if(cover_corporate)$
+% ── Corporate Cover ──────────────────────────────────────────────
+\begin{titlepage}
+\thispagestyle{empty}
+
+% Logo top-right
+$if(logo_path)$
+\begin{flushright}
+\includegraphics[height=1.8cm]{$logo_path$}
+\end{flushright}
+$endif$
+
+\begin{center}
+\vspace*{3cm}
+
+{\Huge\bfseries\sffamily\color{primary}$title$}
+
+\vspace{0.4cm}
+{\color{rulecolor}\rule{0.5\textwidth}{0.4pt}}
+
+$if(subtitle)$
+\vspace{0.4cm}
+{\LARGE\color{secondary}$subtitle$}
+$endif$
+
+\vspace{2cm}
+
+% Info box
+\begin{minipage}{0.7\textwidth}
+\centering
+\begin{tabular}{rl}
+$if(version)$
+\textcolor{secondary}{\textbf{Version}} & \textcolor{secondary}{$version$} \\[4pt]
+$endif$
+\textcolor{secondary}{\textbf{Date}}    & \textcolor{secondary}{$date$}    \\[4pt]
+$if(author)$
+\textcolor{secondary}{\textbf{Author}}  & \textcolor{secondary}{$for(author)$$author$$sep$, $endfor$} \\
+$endif$
+\end{tabular}
+\end{minipage}
+
+\vfill
+{\small\color{accent}Confidential}
+\end{center}
+\end{titlepage}
+$endif$
+
+% ═════════════════════════════════════════════════════════════════
+%  NO COVER (default maketitle)
+% ═════════════════════════════════════════════════════════════════
+
+$if(cover)$
+$else$
+$if(title)$
+\maketitle
+$if(abstract)$
+\begin{abstract}
+$abstract$
+\end{abstract}
+$endif$
+$endif$
+$endif$
+
+% ═════════════════════════════════════════════════════════════════
+%  TABLE OF CONTENTS
+% ═════════════════════════════════════════════════════════════════
+
+$if(toc)$
+{
+$if(toc-title)$
+\renewcommand*\contentsname{$toc-title$}
+$endif$
+\hypersetup{linkcolor=primary}
+\setcounter{tocdepth}{$toc-depth$}
+\tableofcontents
+\newpage
+}
+$endif$
+
+$if(lof)$
+\listoffigures
+$endif$
+$if(lot)$
+\listoftables
+$endif$
+
+$if(linestretch)$
+\setstretch{$linestretch$}
+$endif$
+
+$if(has-frontmatter)$
+\mainmatter
+$endif$
+
+% ═════════════════════════════════════════════════════════════════
+%  BODY
+% ═════════════════════════════════════════════════════════════════
+
+$body$
+
+$if(has-frontmatter)$
+\backmatter
+$endif$
+
+$if(natbib)$
+$if(bibliography)$
+$if(biblio-title)$
+$if(has-chapters)$
+\renewcommand\bibname{$biblio-title$}
+$else$
+\renewcommand\refname{$biblio-title$}
+$endif$
+$endif$
+\bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
+$endif$
+$endif$
+
+$if(biblatex)$
+\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+$endif$
+
+$for(include-after)$
+$include-after$
+$endfor$
+
+\end{document}

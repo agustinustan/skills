@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="120" viewBox="0 0 360 120" role="img" aria-label="Sample report asset">
+  <rect width="360" height="120" fill="#ebf5fb"/>
+  <rect x="16" y="16" width="328" height="88" fill="#ffffff" stroke="#1a5276" stroke-width="3"/>
+  <text x="180" y="68" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#1a5276">Local Report Asset</text>
+</svg>
