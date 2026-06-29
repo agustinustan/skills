@@ -1,0 +1,10 @@
+interface:
+  display_name: "AI Skill Template"
+  short_description: "Template for authoring Pi Coding Agent skills."
+  default_prompt: "$ai-skill-template"
+
+policy:
+  allow_implicit_invocation: true
+
+dependencies:
+  tools: []

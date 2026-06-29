@@ -1,0 +1,16 @@
+{
+  "name": "ai-skills",
+  "version": "0.1.0",
+  "description": "AI assistant skills for OpenAI Codex CLI and Pi Coding Agent.",
+  "license": "MIT",
+  "keywords": [
+    "agent-skills",
+    "codex-skills",
+    "pi-package"
+  ],
+  "pi": {
+    "skills": [
+      "./skills"
+    ]
+  }
+}

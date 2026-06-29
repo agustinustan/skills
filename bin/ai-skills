@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+APP_NAME="ai-skills"
+VERSION="${AI_SKILLS_VERSION:-0.1.0}"
+CONFIG_FILE="${AI_SKILLS_CONFIG:-/etc/ai-skills/config.yaml}"
+
+usage() {
+  cat <<'USAGE'
+ai-skills - manage AI assistant skills
+
+Usage:
+  ai-skills <command> [options]
+
+Commands:
+  version     Print version
+  doctor      Validate runtime environment
+  help        Show this help
+
+Options:
+  -h, --help  Show help
+USAGE
+}
+
+doctor() {
+  printf '%s\n' "app: ${APP_NAME}"
+  printf '%s\n' "version: ${VERSION}"
+  printf '%s\n' "config: ${CONFIG_FILE}"
+  if [ -f "${CONFIG_FILE}" ]; then
+    printf '%s\n' "config_status: found"
+  else
+    printf '%s\n' "config_status: missing"
+  fi
+}
+
+case "${1:-help}" in
+  version|--version|-v)
+    printf '%s\n' "${VERSION}"
+    ;;
+  doctor)
+    doctor
+    ;;
+  help|--help|-h)
+    usage
+    ;;
+  *)
+    printf 'Unknown command: %s\n\n' "$1" >&2
+    usage >&2
+    exit 2
+    ;;
+esac
