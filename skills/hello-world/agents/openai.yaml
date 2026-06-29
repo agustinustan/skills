@@ -1,0 +1,4 @@
+interface:
+  display_name: "Hello World"
+  short_description: "Create simple hello-world examples"
+  default_prompt: "Use $hello-world to create a minimal hello-world example."
