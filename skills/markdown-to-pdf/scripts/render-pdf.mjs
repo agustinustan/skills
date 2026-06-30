@@ -5,9 +5,15 @@ const require = createRequire(import.meta.url);
 const { chromium } = require('/usr/local/lib/node_modules/playwright');
 
 const [, , inputHtml, outputPdf] = process.argv;
+const printScale = Number.parseFloat(process.env.MARKDOWN_TO_PDF_PRINT_SCALE || '0.75');
 
 if (!inputHtml || !outputPdf) {
   console.error('Usage: render-pdf.mjs <input-html> <output-pdf>');
+  process.exit(2);
+}
+
+if (!Number.isFinite(printScale) || printScale < 0.1 || printScale > 2) {
+  console.error('MARKDOWN_TO_PDF_PRINT_SCALE must be a number between 0.1 and 2');
   process.exit(2);
 }
 
@@ -25,6 +31,7 @@ try {
     format: 'A4',
     printBackground: true,
     preferCSSPageSize: true,
+    scale: printScale,
   });
 } finally {
   await browser.close();
