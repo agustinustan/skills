@@ -103,8 +103,25 @@ td {
 
 img,
 svg {
+  display: block;
   height: auto;
+  margin: 0 auto;
+  max-height: 170mm;
   max-width: 100%;
+  object-fit: contain;
+}
+
+figure {
+  break-inside: avoid;
+  margin: 1em 0;
+  page-break-inside: avoid;
+}
+
+figcaption {
+  color: var(--muted);
+  font-size: 9.5pt;
+  margin-top: 4pt;
+  text-align: center;
 }
 
 .math,
@@ -132,6 +149,37 @@ nav#TOC ul {
 .title,
 .subtitle,
 .author,
-.date {
+.date,
+.cover-label {
   font-family: "FreeSans", "Noto Sans", Arial, sans-serif;
+}
+
+.document-cover .title {
+  border-bottom: 0;
+  color: var(--primary);
+  font-size: 34pt;
+  line-height: 1.1;
+  margin-bottom: 14pt;
+}
+
+.document-cover .subtitle {
+  color: var(--secondary);
+  font-size: 18pt;
+  margin: 0 0 28pt;
+}
+
+.document-cover .author,
+.document-cover .date {
+  color: var(--muted);
+  font-size: 12pt;
+  margin: 4pt 0;
+}
+
+.cover-label {
+  color: var(--muted);
+  font-size: 10pt;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin: 0 0 12pt;
+  text-transform: uppercase;
 }
