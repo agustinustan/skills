@@ -11,13 +11,31 @@
   $if(date)$<meta name="date" content="$date$">$endif$
   <title>$if(title)$$title$$else$Markdown Report$endif$</title>
   <link rel="stylesheet" href="/opt/markdown-to-pdf/print.css">
+  <style>
+    .document-cover {
+      box-sizing: border-box;
+      break-after: page;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: calc(297mm - 44mm);
+      page-break-after: always;
+    }
+
+    .document-toc {
+      box-sizing: border-box;
+      break-after: page;
+      min-height: calc(297mm - 44mm);
+      page-break-after: always;
+    }
+  </style>
 </head>
 <body>
 $for(include-before)$
 $include-before$
 $endfor$
 $if(title)$
-<header class="document-title">
+<header class="document-title document-cover">
   <h1 class="title">$title$</h1>
   $if(subtitle)$<p class="subtitle">$subtitle$</p>$endif$
   $if(author)$<p class="author">$for(author)$$author$$sep$, $endfor$</p>$endif$
@@ -25,7 +43,7 @@ $if(title)$
 </header>
 $endif$
 $if(toc)$
-<nav id="$idprefix$TOC" role="doc-toc">
+<nav id="$idprefix$TOC" class="document-toc" role="doc-toc">
 $if(toc-title)$
 <h2 id="$idprefix$toc-title">$toc-title$</h2>
 $endif$
